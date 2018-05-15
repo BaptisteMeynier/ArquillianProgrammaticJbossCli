@@ -10,11 +10,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class InstallProperties implements ServerSetupTask {
+public class PlayCli implements ServerSetupTask {
 
-    public static final String REMOVE_PROPERTIES = "src/test/resources/jboss-remove-properties.cli";
+    public static final String REMOVE_PROPERTIES = "src/test/resources/jboss-remove-naming.cli";
     public static final String PRESENCE_SCRIPT = "src/test/resources/jboss-check-presence.cli";
-    public static final String ADD_PROPERTIES = "src/test/resources/jboss-add-properties.cli";
+    public static final String ADD_PROPERTIES = "src/test/resources/jboss-add-naming.cli";
 
     @Override
     public void setup(ManagementClient managementClient, String containerId) throws Exception {

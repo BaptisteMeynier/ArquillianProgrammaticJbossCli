@@ -10,6 +10,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -20,7 +21,7 @@ import java.io.File;
  * Created by meynier on 02/05/2017.
  */
 @RunWith(Arquillian.class)
-@ServerSetup(InstallProperties.class)
+@ServerSetup(PlayCli.class)
 public class MyServiceTest {
 
     @Inject
@@ -29,19 +30,22 @@ public class MyServiceTest {
     @Deployment
     public static Archive<?> createDeployment() {
         final PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml");
-        File[] compileAndRuntime = pom.importCompileAndRuntimeDependencies().resolve().withTransitivity().asFile();
         File[] test = pom.importTestDependencies().resolve().withTransitivity().asFile();
         return ShrinkWrap.create(WebArchive.class)
-                .addClasses(Database.class,MyService.class)
-                .addClass(InstallProperties.class)
-                .addAsLibraries(compileAndRuntime)
+                .addClasses(MyService.class)
+                .addClass(PlayCli.class)
                 .addAsLibraries(test)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 
     @Test
-    public void shouldGetProperties(){
-        myService.getAll();
+    public void shouldEqualsNamingProperties(){
+        Assert.assertEquals(100,myService.getA());
+    }
+
+    @Test
+    public void shouldNotBeEqualsNamingProperties(){
+        Assert.assertNotEquals(200,myService.getA());
     }
 
 

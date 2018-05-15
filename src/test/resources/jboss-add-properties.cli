@@ -1,2 +1,0 @@
-/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=max-post-size,value=52430380)
-reload

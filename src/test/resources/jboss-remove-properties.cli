@@ -1,2 +1,0 @@
-/subsystem=naming/binding=java\:global\/amundi\/ldap:remove()
-reload
